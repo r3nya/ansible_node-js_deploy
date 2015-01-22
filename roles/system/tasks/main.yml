@@ -1,0 +1,44 @@
+---
+  - name: Create user
+    user: name={{ user}} shell={{ user_shell }}
+
+  - name: Create .ssh directory
+    file: path={{ user_home }}/.ssh state=directory owner={{ user }} group={{ user}}
+
+  - name: Added private ssh key for user
+    copy: src=id_rsa dest={{ user_home }}/.ssh owner={{ user }} group={{ user }} mode=600
+
+  - name: Added public ssh key for user
+    copy: src=id_rsa.pub dest={{ user_home }}/.ssh owner={{ user }} group={{ user }} mode=644
+
+  - name: Copy ssh config
+    copy: src=config dest={{ user_home }}/.ssh owner={{ user }} group={{ user }}
+
+  - name: Authorized key
+    authorized_key: user={{ user }} key="{{ lookup('file', 'id_rsa.pub') }}"
+
+  - name: Copy script for ssh_enable
+    copy: src=ssh_enable.sh dest=/tmp/ssh_enable.sh owner={{ user }} group={{ user }} mode=755
+
+  - name: Restart SSHD
+    service: name=sshd state=restarted
+
+  - name: Run script ssh_enable
+    command: /bin/bash /tmp/ssh_enable.sh
+    sudo_user: "{{ user }}"
+
+  - name: Adds authorized keys for lsync connection
+    authorized_key:  user={{ user }} key="{{ lookup('file', 'another_rsa_key.pub') }}"
+
+  - name: Install epel-release
+    yum: name=epel-release state=latest
+
+  - name: Install software
+    yum: name={{ item }} state=latest
+    with_items:
+      - git
+      - gcc-c++
+      - openssl-devel
+      - htop
+      - mc
+      - iptraf

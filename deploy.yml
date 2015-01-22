@@ -1,0 +1,7 @@
+---
+  - name: Deploy WebApp
+    hosts: all
+    sudo: yes
+
+    roles:
+      - webapp

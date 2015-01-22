@@ -1,0 +1,13 @@
+---
+### System
+user:       'user'
+user_shell: '/bin/bash'
+user_home:  '/home/user'
+
+### WebApp
+root_directory: '/var/super_app'
+app_git_link:   'git@git.blablabla'
+app_directory:  '/var/super_app/server'
+
+### Build system
+gulp_version: '3.8.5' # from package.json

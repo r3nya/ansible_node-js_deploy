@@ -1,0 +1,15 @@
+---
+  - name: Install NPM
+    yum:  name=ntp  state=latest
+
+  - name: Stop NTP service. Need to do this before you attempt one-time ntpdate use
+    service: name=ntpd state=stopped
+
+  - name: One-time setting of date and time via ntpdate
+    command: ntpdate 0.ru.pool.ntp.org
+
+  - name: Set up ntp
+    copy: src=ntp.conf dest=/etc/ntp.conf
+
+  - name: Run NTP service
+    service: name=ntpd state=started enabled=yes

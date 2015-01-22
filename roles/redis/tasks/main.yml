@@ -1,0 +1,10 @@
+---
+  - name: Added remi repo
+    yum: name=http://rpms.famillecollet.com/enterprise/remi-release-5.rpm state=present
+
+  - name: Install Redis
+    yum:  name=redis state=latest
+
+  - name: Apply config file
+    copy: src=redis.conf dest=/etc/redis.conf owner=root group=root
+    notify: Restart Redis

@@ -1,0 +1,14 @@
+---
+  - name: Install Env
+    hosts: all
+    sudo: yes
+
+    roles:
+      - system
+      - ntp_client
+      - sysctl
+      - redis
+      - node
+      - webapp_deps
+      - { role: webapp, sudo_user: "{{ user }}" }
+      - nginx

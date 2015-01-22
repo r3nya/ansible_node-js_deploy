@@ -1,0 +1,12 @@
+---
+  - name: Set vm.overcommit_memory
+    sysctl: name=vm.overcommit_memory value=1 state=present
+
+  - name: Set net.ipv4.netfilter.ip_conntrack_max
+    sysctl: name=net.ipv4.netfilter.ip_conntrack_max value=1048576 state=present
+
+  - name: Set net.ipv4.netfilter.ip_conntrack_max
+    sysctl: name=net.ipv4.netfilter.ip_conntrack_max value=2097152 state=present
+
+  - name: Set fs.file-max
+    sysctl: name=fs.file-max value=1048576 state=present

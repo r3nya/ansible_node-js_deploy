@@ -1,0 +1,9 @@
+---
+  - name: Create directory for WebApp
+    file: path={{ root_directory }} state=directory owner={{ user }}
+
+  - name: Install Gulp package globally
+    npm: name=gulp version={{ gulp_version }} global=yes
+
+  - name: Install forever package globally
+    npm: name=forever global=yes

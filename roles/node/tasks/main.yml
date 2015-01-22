@@ -1,0 +1,9 @@
+---
+  - name: Copy shell script
+    copy: src=setup.sh dest=/tmp/setup.sh owner=root group=root mode=755
+
+  - name: Run install node repo from script
+    command: /bin/bash /tmp/setup.sh
+
+  - name: Install node with yum
+    yum: name=nodejs state=latest

@@ -1,0 +1,4 @@
+ForwardAgent yes
+
+Host git.host
+  IdentityFile ~/.ssh/id_rsa
